@@ -20,20 +20,20 @@ function NameSearcher() {
                 title="npm"
                 details={[
                     {
-                        name: "react",
+                        label: "react",
                         visible: true,
                         abbreviate: false
                     }, {
-                        name: "react-dom",
+                        label: "react-dom",
                         visible: false,
                         abbreviate: false
                     },
                     {
-                        name: "@types/react",
+                        label: "@types/react",
                         visible: true,
                         abbreviate: true
                     }, {
-                        name: "@types/react-dom",
+                        label: "@types/react-dom",
                         visible: false,
                         abbreviate: true
                     }
@@ -63,16 +63,18 @@ function InputField() {
 function Response(
     {
         //icon,
-        name,
+        label,
         visible,
         abbreviate
     }: {
         icon?: string,
-        name: string,
+        label: string,
         visible: boolean,
         abbreviate: boolean
     }
 ) {
+    const context = React.useContext(NameSearcherContext)
+
     return (
         <li
             className={classNames({
@@ -82,7 +84,7 @@ function Response(
                 "abbreviate": abbreviate
             })}
         >
-            {name + " : " + name}
+            {label + " : " + context.name}
         </li>
     )
 }
@@ -95,13 +97,12 @@ function ResponseGroup(
         title: string
         details: {
             icon?: string,
-            name: string,
+            label: string,
             visible: boolean,
             abbreviate: boolean
         }[]
     }
 ) {
-    //const context = React.useContext(NameSearcherContext)
 
     const listItems: [
         [
@@ -124,7 +125,7 @@ function ResponseGroup(
             listItemState,
             (<Response
                 //icon={detail.icon}
-                name={detail.name}
+                label={detail.label}
                 visible={detail.visible}
                 abbreviate={listItemState[0]}
                 key={i}
